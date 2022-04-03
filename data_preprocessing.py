@@ -57,12 +57,12 @@ def get_phone_data():
     df_phone_gyro = df_phone_gyro.drop("actCode", axis=1)
     df_phone = pd.merge(df_phone_accel, df_phone_gyro)
     df_phone.drop("id", axis=1)
-    df_phone['a_x'] = df_phone['a_x'].astype('float')
-    df_phone['a_y'] = df_phone['a_y'].astype('float')
-    df_phone['a_z'] = df_phone['a_z'].astype('float')
-    df_phone['g_x'] = df_phone['g_x'].astype('float')
-    df_phone['g_y'] = df_phone['g_y'].astype('float')
-    df_phone['g_z'] = df_phone['g_z'].astype('float')
+    df_phone['a_x'] = df_phone['a_x'].astype('float64')
+    df_phone['a_y'] = df_phone['a_y'].astype('float64')
+    df_phone['a_z'] = df_phone['a_z'].astype('float64')
+    df_phone['g_x'] = df_phone['g_x'].astype('float64')
+    df_phone['g_y'] = df_phone['g_y'].astype('float64')
+    df_phone['g_z'] = df_phone['g_z'].astype('float64')
     # Standardize
     label = LabelEncoder()
     df_phone['label'] = label.fit_transform(df_phone['actCode'])
@@ -74,6 +74,8 @@ def get_phone_data():
     df_phone['label'] = y.values
     x, y = get_frames(df=df_phone)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=0, stratify=y)
+    x_train = x_train.reshape(61817, 1, 80, 6)
+    x_test = x_test.reshape(10909, 1, 80, 6)
     return x_train, x_test, y_train, y_test
 
 
@@ -105,12 +107,12 @@ def get_watch_data():
     df_watch_gyro = df_watch_gyro.drop("actCode", axis=1)
     df_watch = pd.merge(df_watch_accel, df_watch_gyro)
     df_watch = df_watch.drop("id", axis=1)
-    df_watch['a_x'] = df_watch['a_x'].astype('float')
-    df_watch['a_y'] = df_watch['a_y'].astype('float')
-    df_watch['a_z'] = df_watch['a_z'].astype('float')
-    df_watch['g_x'] = df_watch['g_x'].astype('float')
-    df_watch['g_y'] = df_watch['g_y'].astype('float')
-    df_watch['g_z'] = df_watch['g_z'].astype('float')
+    df_watch['a_x'] = df_watch['a_x'].astype('float64')
+    df_watch['a_y'] = df_watch['a_y'].astype('float64')
+    df_watch['a_z'] = df_watch['a_z'].astype('float64')
+    df_watch['g_x'] = df_watch['g_x'].astype('float64')
+    df_watch['g_y'] = df_watch['g_y'].astype('float64')
+    df_watch['g_z'] = df_watch['g_z'].astype('float64')
     label = LabelEncoder()
     df_watch['label'] = label.fit_transform(df_watch['actCode'])
     x = df_watch[['a_x', 'a_y', 'a_z', 'g_x', 'g_y', 'g_z']]
@@ -121,6 +123,8 @@ def get_watch_data():
     df_watch['label'] = y.values
     x, y = get_frames(df=df_watch)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=0, stratify=y)
+    x_train = x_train.reshape(71628, 1, 80, 6)
+    x_test = x_test.reshape(12641, 1, 80, 6)
     return x_train, x_test, y_train, y_test
 
 
@@ -128,6 +132,9 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test = get_phone_data()
     print(x_train.shape, x_test.shape)
     print(x_train[0].shape, x_test[0].shape)
+    print(x_train[0])
+    '''
     x_train, x_test, y_train, y_test = get_watch_data()
     print(x_train.shape, x_test.shape)
     print(x_train[0].shape, x_test[0].shape)
+    '''
