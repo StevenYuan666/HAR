@@ -73,9 +73,9 @@ def get_phone_data():
     df_phone = pd.DataFrame(data=x, columns=['a_x', 'a_y', 'a_z', 'g_x', 'g_y', 'g_z'])
     df_phone['label'] = y.values
     x, y = get_frames(df=df_phone)
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=0, stratify=y)
-    x_train = x_train.reshape(61817, 1, 80, 6)
-    x_test = x_test.reshape(10909, 1, 80, 6)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0, stratify=y)
+    x_train = x_train.reshape(58180, 80, 6, 1)
+    x_test = x_test.reshape(14546, 80, 6, 1)
     return x_train, x_test, y_train, y_test
 
 
@@ -122,19 +122,12 @@ def get_watch_data():
     df_watch = pd.DataFrame(data=x, columns=['a_x', 'a_y', 'a_z', 'g_x', 'g_y', 'g_z'])
     df_watch['label'] = y.values
     x, y = get_frames(df=df_watch)
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=0, stratify=y)
-    x_train = x_train.reshape(71628, 1, 80, 6)
-    x_test = x_test.reshape(12641, 1, 80, 6)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0, stratify=y)
+    x_train = x_train.reshape(67415, 80, 6, 1)
+    x_test = x_test.reshape(16854, 80, 6, 1)
     return x_train, x_test, y_train, y_test
 
 
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = get_phone_data()
-    print(x_train.shape, x_test.shape)
-    print(x_train[0].shape, x_test[0].shape)
-    print(x_train[0])
-    '''
     x_train, x_test, y_train, y_test = get_watch_data()
-    print(x_train.shape, x_test.shape)
-    print(x_train[0].shape, x_test[0].shape)
-    '''
