@@ -3,11 +3,11 @@ import tensorflow as tf
 from absl import app
 
 
-def main():
-    trainer = Trainer(flag="phone")
+def main(flag, k):
+    trainer = Trainer(flag=flag, k=k)
     print("Start Experiment")
     trainer.train()
 
 
 if __name__ == '__main__':
-    main()
+    main(flag="phone", k=0)

@@ -12,12 +12,12 @@ from model_unseen import Model
 from data_preprocessing import get_phone_data, get_watch_data
 
 class Trainer:
-    def __init__(self, flag):
+    def __init__(self, flag, k=1):
         if flag == "phone":
             print("Loading phone data.")
             self.x_train, self.x_test, self.y_train, self.y_test = get_phone_data()
-            self.x_train = self.x_train[:10000]
-            self.y_train = self.y_train[:10000]
+            self.x_train = self.x_train
+            self.y_train = self.y_train
             self.x_test = self.x_test
             self.y_test = self.y_test
             print("Loaded phone data")
@@ -36,7 +36,7 @@ class Trainer:
         self.model.build_model()
 
         # training iterations
-        self.train_iters = 10001
+        self.train_iters = self.x_train.shape[0] + 1
         # number of samples in each batch
         self.batch_size = 32
         # gamma
@@ -46,7 +46,7 @@ class Trainer:
         # min iterations
         self.T_min = 100
         # number of adversarial phases
-        self.k = 1
+        self.k = k
 
         self.log_dir = "./exp_logs"
         if not os.path.exists(self.log_dir):
@@ -73,16 +73,16 @@ class Trainer:
                     for start, end in zip(range(0, self.x_train.shape[0], self.batch_size), range(self.batch_size, self.x_train.shape[0], self.batch_size)):
                         feed_dict = {self.model.z: self.x_train[start:end], self.model.labels: self.y_train[start:end]}
 
-                        # assigning the current batch of images to the variable to learn z_hat
+                        # assigning the current batch of data to the variable to learn z_hat
                         sess.run(self.model.z_hat_assign_op, feed_dict)
                         for n in range(self.T_adv):  # running T_adv gradient ascent steps
                             sess.run(self.model.max_train_op, feed_dict)
 
-                        # tmp variable with the learned images
-                        learnt_imgs_tmp = sess.run(self.model.z_hat, feed_dict)
+                        # tmp variable with the learned data
+                        learnt_data_tmp = sess.run(self.model.z_hat, feed_dict)
 
-                        # stacking the learned images and corresponding labels to the original dataset
-                        self.x_train = np.vstack((self.x_train, learnt_imgs_tmp))
+                        # stacking the learned data and corresponding labels to the original dataset
+                        self.x_train = np.vstack((self.x_train, learnt_data_tmp))
                         self.y_train = np.hstack((self.y_train, self.y_train[start:end]))
 
                         # shuffling the dataset
@@ -95,7 +95,7 @@ class Trainer:
 
                 i = t % int(self.x_train.shape[0] / self.batch_size)
 
-                # current batch of images and labels
+                # current batch of data and labels
                 batch_z = self.x_train[i * self.batch_size:(i + 1) * self.batch_size]
                 batch_labels = self.y_train[i * self.batch_size:(i + 1) * self.batch_size]
 

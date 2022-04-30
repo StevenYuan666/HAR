@@ -54,7 +54,6 @@ class Model(object):
                     net = slim.flatten(net)
                     net = slim.fully_connected(net, 256, scope='fc1')
                     # net = slim.dropout(net, keep_prob=0.5)
-                    # net = slim.fully_connected(net, 18, scope='fc2')
                     if return_feat:
                         return net
                     net = slim.fully_connected(net, self.no_classes, activation_fn=None, scope='fco')
@@ -80,7 +79,7 @@ class Model(object):
         self.correct_pred = tf.compat.v1.equal(self.pred, self.labels)
         self.accuracy = tf.compat.v1.reduce_mean(tf.compat.v1.cast(self.correct_pred, tf.compat.v1.float32))
 
-        # variables for the minimizer are the net weights, variables for the maxmizer are the images' pixels
+        # variables for the minimizer are the net weights, variables for the maximizer are the data's pixels
         t_vars = tf.compat.v1.trainable_variables()
         min_vars = [var for var in t_vars if 'z_hat' not in var.name]
         max_vars = [var for var in t_vars if 'z_hat' in var.name]
