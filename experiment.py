@@ -10,4 +10,6 @@ def main(flag, k):
 
 
 if __name__ == '__main__':
-    main(flag="phone", k=0)
+    # main(flag="phone", k=3)
+
+    main(flag="watch", k=2)

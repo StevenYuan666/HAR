@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 import os
 from sklearn.preprocessing import LabelEncoder
 import scipy.stats as stats
+from sklearn.utils import shuffle
 
 
 def get_frames(df, frame_size=80, hop_size=40, n_features=6):
@@ -103,6 +104,8 @@ def get_phone_data():
     df_phone_test['label'] = y_test.values
     x_train, y_train = get_frames(df=df_phone)
     x_test, y_test = get_frames(df=df_phone_test)
+    x_train, y_train = shuffle(x_train, y_train)
+    x_test, y_test = shuffle(x_test, y_test)
     x_train = x_train.reshape(63527, 80, 6, 1)
     x_test = x_test.reshape(9198, 80, 6, 1)
     return x_train, x_test, y_train, y_test
@@ -180,6 +183,8 @@ def get_watch_data():
     df_watch_test['label'] = y_test.values
     x_train, y_train = get_frames(df=df_watch)
     x_test, y_test = get_frames(df=df_watch_test)
+    x_train, y_train = shuffle(x_train, y_train)
+    x_test, y_test = shuffle(x_test, y_test)
     x_train = x_train.reshape(67850, 80, 6, 1)
     x_test = x_test.reshape(16417, 80, 6, 1)
     return x_train, x_test, y_train, y_test

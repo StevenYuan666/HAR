@@ -24,8 +24,8 @@ class Trainer:
         elif flag == "watch":
             print("Loading watch data")
             self.x_train, self.x_test, self.y_train, self.y_test = get_watch_data()
-            self.x_train = self.x_train[:10000]
-            self.y_train = self.y_train[:10000]
+            self.x_train = self.x_train
+            self.y_train = self.y_train
             self.x_test = self.x_test
             self.y_test = self.y_test
             print("Loaded watch data")
