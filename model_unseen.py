@@ -10,18 +10,18 @@ class Model(object):
     """Tensorflow model
     """
 
-    def __init__(self, mode='train'):
+    def __init__(self, iterations=10001, mode='train'):
         self.no_classes = 18
         self.x_size = 80
         self.y_size = 6
         self.no_channels = 1
 
         # training iterations
-        self.train_iters = 10001
+        self.train_iters = iterations
         # number of samples in each batch
         self.batch_size = 32
         # learning rate min
-        self.learning_rate_min = 0.001
+        self.learning_rate_min = 0.0001
         # learning rate max
         self.learning_rate_max = 1.0
         # gamma
@@ -52,7 +52,8 @@ class Model(object):
                     net = slim.conv2d(net, 128, (2, 2), scope='conv2')
                     # net = slim.dropout(net, keep_prob=0.8)
                     net = slim.flatten(net)
-                    net = slim.fully_connected(net, 256, scope='fc1')
+                    net = slim.fully_connected(net, 512, scope='fc1')
+                    net = slim.fully_connected(net, 512, scope='fc2')
                     # net = slim.dropout(net, keep_prob=0.5)
                     if return_feat:
                         return net

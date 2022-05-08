@@ -7,9 +7,11 @@ def main(flag, k):
     trainer = Trainer(flag=flag, k=k)
     print("Start Experiment")
     trainer.train()
+    print("Start Testing")
+    trainer.test()
 
 
 if __name__ == '__main__':
-    # main(flag="phone", k=3)
+    main(flag="phone", k=3)
 
-    main(flag="watch", k=2)
+    # main(flag="watch", k=2)

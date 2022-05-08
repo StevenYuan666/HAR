@@ -7,33 +7,32 @@ import sys
 import glob
 from numpy.linalg import norm
 from scipy import misc
+import tf_slim as slim
 
 from model_unseen import Model
 from data_preprocessing import get_phone_data, get_watch_data
 
 class Trainer:
     def __init__(self, flag, k=1):
+        self.flag = flag
         if flag == "phone":
             print("Loading phone data.")
-            self.x_train, self.x_test, self.y_train, self.y_test = get_phone_data()
+            self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = get_phone_data()
             self.x_train = self.x_train
             self.y_train = self.y_train
-            self.x_test = self.x_test
-            self.y_test = self.y_test
+            self.x_validation = self.x_validation
+            self.y_validation = self.y_validation
             print("Loaded phone data")
         elif flag == "watch":
             print("Loading watch data")
-            self.x_train, self.x_test, self.y_train, self.y_test = get_watch_data()
+            self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = get_watch_data()
             self.x_train = self.x_train
             self.y_train = self.y_train
-            self.x_test = self.x_test
-            self.y_test = self.y_test
+            self.x_validation = self.x_validation
+            self.y_validation = self.y_validation
             print("Loaded watch data")
         else:
             raise Exception("flag should be either 'phone' or 'watch'")
-
-        self.model = Model()
-        self.model.build_model()
 
         # training iterations
         self.train_iters = self.x_train.shape[0] + 1
@@ -58,10 +57,15 @@ class Trainer:
 
     def train(self):
 
+        print("Building Model")
+        self.model = Model(iterations=self.x_train.shape[0] + 1)
+        self.model.build_model()
+        print("Built")
+
         with tf.compat.v1.Session(config=tf.compat.v1.ConfigProto()) as sess:
             # tf.compat.v1.global_variables_initializer().run()
             sess.run(tf.compat.v1.global_variables_initializer())
-            # saver = tf.compat.v1.train.Saver(max_to_keep=0)
+            saver = tf.compat.v1.train.Saver()
 
             summary_writer = tf.compat.v1.summary.FileWriter(logdir=self.log_dir, graph=tf.compat.v1.get_default_graph())
 
@@ -105,21 +109,21 @@ class Trainer:
                 sess.run([self.model.min_train_op, self.model.min_loss], feed_dict)
 
                 # evaluating the model
-                if t % 250 == 0:
+                if t % 100 == 0:
                     summary, min_l, max_l, acc = sess.run(
                         [self.model.summary_op, self.model.min_loss, self.model.max_loss, self.model.accuracy],
                         feed_dict)
 
                     train_rand_idxs = np.random.permutation(self.x_train.shape[0])[:100]
-                    test_rand_idxs = np.random.permutation(self.x_test.shape[0])[:100]
+                    test_rand_idxs = np.random.permutation(self.x_validation.shape[0])[:100]
 
                     train_acc, train_min_loss = sess.run(fetches=[self.model.accuracy, self.model.min_loss],
                                                          feed_dict={self.model.z: self.x_train[train_rand_idxs],
                                                                     self.model.labels: self.y_train[
                                                                         train_rand_idxs]})
                     test_acc, test_min_loss = sess.run(fetches=[self.model.accuracy, self.model.min_loss],
-                                                       feed_dict={self.model.z: self.x_test[test_rand_idxs],
-                                                                  self.model.labels: self.y_test[
+                                                       feed_dict={self.model.z: self.x_validation[test_rand_idxs],
+                                                                  self.model.labels: self.y_validation[
                                                                       test_rand_idxs]})
 
                     summary_writer.add_summary(summary, t)
@@ -128,5 +132,33 @@ class Trainer:
                         t + 1, self.train_iters, train_min_loss, train_acc, test_min_loss, test_acc))
 
             print('Saving')
-            # saver.save(sess, os.path.join(self.model_save_path, 'encoder'))
+            saver.save(sess, os.path.join(self.model_save_path, self.flag + '_k' + str(self.k), self.flag + '_encoder_' + str(self.k)))
 
+    def test(self):
+        # build a graph
+        # print('Building model')
+        # self.model.build_model()
+        # print('Built')
+
+        with tf.compat.v1.Session() as sess:
+            tf.compat.v1.global_variables_initializer().run()
+
+            print('Loading pre-trained model.')
+            variables_to_restore = slim.get_model_variables(scope='encoder')
+            restorer = tf.compat.v1.train.Saver(variables_to_restore)
+            restorer.restore(sess, os.path.join(self.model_save_path, self.flag + '_k' + str(self.k), self.flag + '_encoder_' + str(self.k)))
+
+            N = 100  # set accordingly to GPU memory
+            target_accuracy = 0
+            target_loss = 0
+
+            print('Calculating accuracy')
+
+            for test_data_batch, test_labels_batch in zip(np.array_split(self.x_test, N),
+                                                            np.array_split(self.y_test, N)):
+                feed_dict = {self.model.z: test_data_batch, self.model.labels: test_labels_batch}
+                target_accuracy_tmp, target_loss_tmp = sess.run([self.model.accuracy, self.model.min_loss], feed_dict)
+                target_accuracy += target_accuracy_tmp / float(N)
+                target_loss += target_loss_tmp / float(N)
+
+        print('Target accuracy: [%.4f] target loss: [%.4f]' % (target_accuracy, target_loss))
