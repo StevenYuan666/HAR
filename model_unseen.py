@@ -10,7 +10,7 @@ class Model(object):
     """Tensorflow model
     """
 
-    def __init__(self, iterations=10001, mode='train'):
+    def __init__(self, iterations, mode='train'):
         self.no_classes = 18
         self.x_size = 80
         self.y_size = 6
