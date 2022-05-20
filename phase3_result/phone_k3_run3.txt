@@ -1,10 +1,6 @@
-Start Training
 Step: [1/63528] train_min_loss: [2.8594] train_acc: [0.0700] test_min_loss: [2.8733] test_acc: [0.0400]
-Generating adversarial data [iter 0]
 Step: [101/63528] train_min_loss: [2.0796] train_acc: [0.2500] test_min_loss: [2.5979] test_acc: [0.1100]
-Generating adversarial data [iter 1]
 Step: [201/63528] train_min_loss: [2.0052] train_acc: [0.3000] test_min_loss: [2.7710] test_acc: [0.0800]
-Generating adversarial data [iter 2]
 Step: [301/63528] train_min_loss: [2.0453] train_acc: [0.3000] test_min_loss: [2.6360] test_acc: [0.1300]
 Step: [401/63528] train_min_loss: [1.9019] train_acc: [0.2700] test_min_loss: [2.6325] test_acc: [0.0700]
 Step: [501/63528] train_min_loss: [1.9376] train_acc: [0.3200] test_min_loss: [2.5451] test_acc: [0.1300]

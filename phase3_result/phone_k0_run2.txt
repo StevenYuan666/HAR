@@ -1,4 +1,3 @@
-Start Training
 Step: [1/63528] train_min_loss: [2.8173] train_acc: [0.1500] test_min_loss: [2.8540] test_acc: [0.1500]
 Step: [101/63528] train_min_loss: [2.1550] train_acc: [0.2300] test_min_loss: [2.5254] test_acc: [0.0800]
 Step: [201/63528] train_min_loss: [2.1761] train_acc: [0.1800] test_min_loss: [2.4213] test_acc: [0.1800]

@@ -1,6 +1,4 @@
-Start Training
 Step: [1/63528] train_min_loss: [2.8631] train_acc: [0.0500] test_min_loss: [2.9064] test_acc: [0.0400]
-Generating adversarial data [iter 0]
 Step: [101/63528] train_min_loss: [2.1495] train_acc: [0.2300] test_min_loss: [2.7747] test_acc: [0.0500]
 Step: [201/63528] train_min_loss: [2.0165] train_acc: [0.2800] test_min_loss: [2.6354] test_acc: [0.0800]
 Step: [301/63528] train_min_loss: [1.8929] train_acc: [0.3300] test_min_loss: [2.6839] test_acc: [0.1600]
