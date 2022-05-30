@@ -211,32 +211,32 @@ def phone():
 
 def watch():
     watch_k0_run1_train_loss, watch_k0_run1_train_accuracy, watch_k0_run1_test_loss, watch_k0_run1_test_accuracy \
-        = get_record(path="phase3_result/watch_k0_run1.txt")
+        = get_record(path="phase4_result/watch_k0_run1.txt")
     watch_k0_run2_train_loss, watch_k0_run2_train_accuracy, watch_k0_run2_test_loss, watch_k0_run2_test_accuracy \
-        = get_record(path="phase3_result/watch_k0_run2.txt")
+        = get_record(path="phase4_result/watch_k0_run2.txt")
     watch_k0_run3_train_loss, watch_k0_run3_train_accuracy, watch_k0_run3_test_loss, watch_k0_run3_test_accuracy \
-        = get_record(path="phase3_result/watch_k0_run3.txt")
+        = get_record(path="phase4_result/watch_k0_run3.txt")
 
     watch_k1_run1_train_loss, watch_k1_run1_train_accuracy, watch_k1_run1_test_loss, watch_k1_run1_test_accuracy \
-        = get_record(path="phase3_result/watch_k1_run1.txt")
+        = get_record(path="phase4_result/watch_k1_run1.txt")
     watch_k1_run2_train_loss, watch_k1_run2_train_accuracy, watch_k1_run2_test_loss, watch_k1_run2_test_accuracy \
-        = get_record(path="phase3_result/watch_k1_run2.txt")
+        = get_record(path="phase4_result/watch_k1_run2.txt")
     watch_k1_run3_train_loss, watch_k1_run3_train_accuracy, watch_k1_run3_test_loss, watch_k1_run3_test_accuracy \
-        = get_record(path="phase3_result/watch_k1_run3.txt")
+        = get_record(path="phase4_result/watch_k1_run3.txt")
 
     watch_k2_run1_train_loss, watch_k2_run1_train_accuracy, watch_k2_run1_test_loss, watch_k2_run1_test_accuracy \
-        = get_record(path="phase3_result/watch_k2_run1.txt")
+        = get_record(path="phase4_result/watch_k2_run1.txt")
     watch_k2_run2_train_loss, watch_k2_run2_train_accuracy, watch_k2_run2_test_loss, watch_k2_run2_test_accuracy \
-        = get_record(path="phase3_result/watch_k2_run2.txt")
+        = get_record(path="phase4_result/watch_k2_run2.txt")
     watch_k2_run3_train_loss, watch_k2_run3_train_accuracy, watch_k2_run3_test_loss, watch_k2_run3_test_accuracy \
-        = get_record(path="phase3_result/watch_k2_run3.txt")
+        = get_record(path="phase4_result/watch_k2_run3.txt")
 
     watch_k3_run1_train_loss, watch_k3_run1_train_accuracy, watch_k3_run1_test_loss, watch_k3_run1_test_accuracy \
-        = get_record(path="phase3_result/watch_k3_run1.txt")
+        = get_record(path="phase4_result/watch_k3_run1.txt")
     watch_k3_run2_train_loss, watch_k3_run2_train_accuracy, watch_k3_run2_test_loss, watch_k3_run2_test_accuracy \
-        = get_record(path="phase3_result/watch_k3_run2.txt")
+        = get_record(path="phase4_result/watch_k3_run2.txt")
     watch_k3_run3_train_loss, watch_k3_run3_train_accuracy, watch_k3_run3_test_loss, watch_k3_run3_test_accuracy \
-        = get_record(path="phase3_result/watch_k3_run3.txt")
+        = get_record(path="phase4_result/watch_k3_run3.txt")
 
     watch_k0_train_loss = [watch_k0_run1_train_loss, watch_k0_run2_train_loss, watch_k0_run3_train_loss]
     watch_k0_train_accuracy = [watch_k0_run1_train_accuracy, watch_k0_run2_train_accuracy, watch_k0_run3_train_accuracy]
@@ -282,7 +282,7 @@ def watch():
     plt.ylabel("Training SoftMax Loss")
     plt.title("Watch Average Training Loss Curve")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Training_Loss.png")
+    plt.savefig("./phase4_result/Watch_Training_Loss.png")
     plt.show()
 
     # Training Accuracy
@@ -306,7 +306,7 @@ def watch():
     plt.ylabel("Training Accuracy")
     plt.title("Watch Average Training Accuracy Curve")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Training_Accuracy.png")
+    plt.savefig("./phase4_result/Watch_Training_Accuracy.png")
     plt.show()
 
     # Validation Error
@@ -330,7 +330,7 @@ def watch():
     plt.ylabel("Validation SoftMax Loss")
     plt.title("Watch Average Validation Loss Curve")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Validation_Loss.png")
+    plt.savefig("./phase4_result/Watch_Validation_Loss.png")
     plt.show()
 
     # Validation Accuracy
@@ -354,18 +354,18 @@ def watch():
     plt.ylabel("Validation Accuracy")
     plt.title("Watch Average Validation Accuracy Curve")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Validation_Accuracy.png")
+    plt.savefig("./phase4_result/Watch_Validation_Accuracy.png")
     plt.show()
 
     # Phone Test
-    k0_accuracy = [0.6570, 0.6654, 0.6593]
-    k0_loss = [3.7812, 3.7491, 3.8222]
-    k1_accuracy = [0.6653, 0.6379, 0.6519]
-    k1_loss = [3.3660, 3.6812, 3.6548]
-    k2_accuracy = [0.6491, 0.6486, 0.6675]
-    k2_loss = [3.4348, 3.3361, 3.2235]
-    k3_accuracy = [0.6708, 0.6393, 0.6320]
-    k3_loss = [3.0483, 3.1041, 3.3065]
+    k0_accuracy = [0.6013, 0.6526, 0.6083]
+    k0_loss = [1.2493, 1.1666, 1.2320]
+    k1_accuracy = [0.6429, 0.6317, 0.6627]
+    k1_loss = [1.1894, 1.2254, 1.1697]
+    k2_accuracy = [0.6572, 0.6322, 0.6453]
+    k2_loss = [1.1679, 1.1582, 1.1748]
+    k3_accuracy = [0.6172, 0.6238, 0.6265]
+    k3_loss = [1.2128, 1.1687, 1.2445]
 
     plt.bar(x=0, height=np.mean(k0_accuracy), xerr=None, yerr=np.std(k0_accuracy), label="K=0")
     plt.bar(x=1, height=np.mean(k1_accuracy), xerr=None, yerr=np.std(k1_accuracy), label="K=1")
@@ -375,7 +375,7 @@ def watch():
     plt.ylabel("Test Accuracy")
     plt.title("Watch Average Test Accuracy")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Test_Accuracy.png")
+    plt.savefig("./phase4_result/Watch_Test_Accuracy.png")
     plt.show()
 
     plt.bar(x=0, height=np.mean(k0_loss), xerr=None, yerr=np.std(k0_loss), label="K=0")
@@ -386,7 +386,7 @@ def watch():
     plt.ylabel("Test SoftMax Loss")
     plt.title("Watch Average Test SoftMax Loss")  # 三个run的average和std
     plt.legend()
-    plt.savefig("./phase3_result/Watch_Test_Loss.png")
+    plt.savefig("./phase4_result/Watch_Test_Loss.png")
     plt.show()
 
 if __name__ == '__main__':

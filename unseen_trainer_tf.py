@@ -35,7 +35,8 @@ class Trainer:
             raise Exception("flag should be either 'phone' or 'watch'")
 
         # training iterations
-        self.train_iters = self.x_train.shape[0] + 1
+        # self.train_iters = self.x_train.shape[0] + 1
+        self.train_iters = 2000 # 做一个early stop
         # number of samples in each batch
         self.batch_size = 32
         # gamma
@@ -51,7 +52,7 @@ class Trainer:
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
 
-        self.model_save_path = "./model_params"
+        self.model_save_path = "./model_params_earlystop"
         if not os.path.exists(self.model_save_path):
             os.makedirs(self.model_save_path)
 

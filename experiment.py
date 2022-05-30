@@ -14,4 +14,4 @@ def main(flag, k):
 if __name__ == '__main__':
     # main(flag="phone", k=1)
 
-    main(flag="watch", k=3)
+    main(flag="watch", k=2)

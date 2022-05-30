@@ -1,0 +1,25 @@
+Step: [1/2000] train_min_loss: [2.8642] train_acc: [0.1000] test_min_loss: [2.8655] test_acc: [0.0900]
+Step: [101/2000] train_min_loss: [1.5764] train_acc: [0.4700] test_min_loss: [1.6221] test_acc: [0.4200]
+Step: [201/2000] train_min_loss: [1.4003] train_acc: [0.5000] test_min_loss: [1.4456] test_acc: [0.4800]
+Step: [301/2000] train_min_loss: [1.2479] train_acc: [0.6000] test_min_loss: [1.3830] test_acc: [0.5100]
+Step: [401/2000] train_min_loss: [1.1528] train_acc: [0.6700] test_min_loss: [1.3484] test_acc: [0.5900]
+Step: [501/2000] train_min_loss: [1.2204] train_acc: [0.5700] test_min_loss: [1.4265] test_acc: [0.5700]
+Step: [601/2000] train_min_loss: [1.0944] train_acc: [0.6700] test_min_loss: [1.1973] test_acc: [0.6500]
+Step: [701/2000] train_min_loss: [1.1084] train_acc: [0.6800] test_min_loss: [1.2677] test_acc: [0.6000]
+Step: [801/2000] train_min_loss: [0.8524] train_acc: [0.7000] test_min_loss: [1.1919] test_acc: [0.6100]
+Step: [901/2000] train_min_loss: [1.0481] train_acc: [0.6600] test_min_loss: [1.4580] test_acc: [0.5400]
+Step: [1001/2000] train_min_loss: [0.8299] train_acc: [0.7300] test_min_loss: [1.0273] test_acc: [0.6900]
+Step: [1101/2000] train_min_loss: [1.0842] train_acc: [0.6400] test_min_loss: [1.0650] test_acc: [0.6100]
+Step: [1201/2000] train_min_loss: [0.8616] train_acc: [0.6900] test_min_loss: [1.2724] test_acc: [0.6200]
+Step: [1301/2000] train_min_loss: [0.7951] train_acc: [0.7300] test_min_loss: [1.3781] test_acc: [0.5600]
+Step: [1401/2000] train_min_loss: [0.7895] train_acc: [0.7900] test_min_loss: [1.2071] test_acc: [0.5900]
+Step: [1501/2000] train_min_loss: [1.2084] train_acc: [0.6500] test_min_loss: [1.3006] test_acc: [0.6300]
+Step: [1601/2000] train_min_loss: [0.9258] train_acc: [0.6700] test_min_loss: [0.9363] test_acc: [0.7000]
+Step: [1701/2000] train_min_loss: [0.7297] train_acc: [0.7400] test_min_loss: [1.1716] test_acc: [0.6100]
+Step: [1801/2000] train_min_loss: [0.7480] train_acc: [0.7500] test_min_loss: [0.9494] test_acc: [0.6800]
+Step: [1901/2000] train_min_loss: [0.6766] train_acc: [0.8200] test_min_loss: [1.2736] test_acc: [0.6100]
+Saving
+Start Testing
+Loading pre-trained model.
+Calculating accuracy
+Target accuracy: [0.6083] target loss: [1.2320]
