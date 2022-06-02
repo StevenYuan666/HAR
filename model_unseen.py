@@ -19,7 +19,7 @@ class Model(object):
         # training iterations
         self.train_iters = iterations
         # number of samples in each batch
-        self.batch_size = 32
+        self.batch_size = 16 # 32
         # learning rate min
         self.learning_rate_min = 0.0001
         # learning rate max

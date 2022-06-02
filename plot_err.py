@@ -5,27 +5,39 @@ import numpy as np
 def get_record(path):
     train_loss = []
     train_accuracy = []
-    test_loss = []
-    test_accuracy = []
+    validation_loss = []
+    validation_accuracy = []
 
     record = open(path, 'r')
 
+    test_loss = 0
+    test_accuracy = 0
+
     for line in record.readlines():
         try:
-            line = line.replace("\n", "")
-            line = line.replace("[", "")
-            line = line.replace("]", "")
-            l = line.split(" ")
-            train_loss.append(float(l[3]))
-            train_accuracy.append(float(l[5]))
-            test_loss.append(float(l[7]))
-            test_accuracy.append(float(l[9]))
+            if line.split(" ")[0] == "Step:":
+                line = line.replace("\n", "")
+                line = line.replace("[", "")
+                line = line.replace("]", "")
+                l = line.split(" ")
+                train_loss.append(float(l[3]))
+                train_accuracy.append(float(l[5]))
+                validation_loss.append(float(l[7]))
+                validation_accuracy.append(float(l[9]))
+            if line.split(" ")[0] == "Target":
+                line = line.replace("\n", "")
+                line = line.replace("[", "")
+                line = line.replace("]", "")
+                l = line.split(" ")
+                test_loss = float(l[5])
+                test_accuracy = float(l[2])
+
         except IndexError:
             break
 
     record.close()
 
-    return train_loss, train_accuracy, test_loss, test_accuracy
+    return train_loss, train_accuracy, validation_loss, validation_accuracy, test_loss, test_accuracy
 
 
 def phone():
@@ -99,7 +111,7 @@ def phone():
 
     plt.xlabel("Training Iterations")
     plt.ylabel("Training SoftMax Loss")
-    plt.title("Phone Average Training Loss Curve") # 三个run的average和std
+    plt.title("Phone Average Training Loss Curve")  # 三个run的average和std
     plt.legend()
     plt.savefig("./phase3_result/Phone_Training_Loss.png")
     plt.show()
@@ -389,6 +401,113 @@ def watch():
     plt.savefig("./phase4_result/Watch_Test_Loss.png")
     plt.show()
 
+
+def analyze(phase, k, num_runs, iterations=2000, step=100, flag="watch"):
+    train_loss = []
+    train_accuracy = []
+    validation_loss = []
+    validation_accuracy = []
+    test_loss = []
+    test_accuracy = []
+    for i in range(k + 1):
+        temp_k_train_loss = []
+        temp_k_train_accuracy = []
+        temp_k_validation_loss = []
+        temp_k_validation_accuracy = []
+        temp_k_test_loss = []
+        temp_k_test_accuracy = []
+        for j in range(1, num_runs + 1):
+            temp_path = "./phase" + str(phase) + "_result/" + flag + "_k" + str(i) + "_run" + str(j) + ".txt"
+            temp_train_loss, temp_train_accuracy, temp_validation_loss, temp_validation_accuracy, temp_test_loss, \
+                temp_test_accuracy = get_record(path=temp_path)
+            temp_k_train_loss.append(temp_train_loss)
+            temp_k_train_accuracy.append(temp_train_accuracy)
+            temp_k_validation_loss.append(temp_validation_loss)
+            temp_k_validation_accuracy.append(temp_validation_accuracy)
+            temp_k_test_loss.append(temp_test_loss)
+            temp_k_test_accuracy.append(temp_test_accuracy)
+        train_loss.append(temp_k_train_loss)
+        train_accuracy.append(temp_k_train_accuracy)
+        validation_loss.append(temp_k_validation_loss)
+        validation_accuracy.append(temp_k_validation_accuracy)
+        test_loss.append(temp_k_test_loss)
+        test_accuracy.append(temp_k_test_accuracy)
+
+    length = iterations // step
+    x = np.array(range(1, length * step, 100))
+
+    # Training Loss
+    for i, e in enumerate(train_loss):
+        _, _, bars = plt.errorbar(x, np.mean(e, axis=0), xerr=None,
+                               yerr=np.std(e, axis=0), label='K=' + str(i))
+        [bar.set_alpha(0.3) for bar in bars]
+    plt.xlabel("Training Iterations")
+    plt.ylabel("Training SoftMax Loss")
+    plt.title("Watch Average Training Loss Curve")
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Training_Loss.png")
+    plt.show()
+
+    # Training Accuracy
+    for i, e in enumerate(train_accuracy):
+        _, _, bars = plt.errorbar(x, np.mean(e, axis=0), xerr=None,
+                               yerr=np.std(e, axis=0), label='K=' + str(i))
+        [bar.set_alpha(0.3) for bar in bars]
+    plt.xlabel("Training Iterations")
+    plt.ylabel("Training Accuracy")
+    plt.title("Watch Average Training Accuracy Curve")
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Training_Accuracy.png")
+    plt.show()
+
+    # Validation Loss
+    for i, e in enumerate(validation_loss):
+        _, _, bars = plt.errorbar(x, np.mean(e, axis=0), xerr=None,
+                               yerr=np.std(e, axis=0), label='K=' + str(i))
+        [bar.set_alpha(0.3) for bar in bars]
+    plt.xlabel("Training Iterations")
+    plt.ylabel("Validation SoftMax Loss")
+    plt.title("Watch Average Validation Loss Curve")  # 三个run的average和std
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Validation_Loss.png")
+    plt.show()
+
+    # Validation Accuracy
+    for i, e in enumerate(validation_accuracy):
+        _, _, bars = plt.errorbar(x, np.mean(e, axis=0), xerr=None,
+                               yerr=np.std(e, axis=0), label='K=' + str(i))
+        [bar.set_alpha(0.3) for bar in bars]
+    plt.xlabel("Training Iterations")
+    plt.ylabel("Validation Accuracy")
+    plt.title("Watch Average Validation Accuracy Curve")
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Validation_Accuracy.png")
+    plt.show()
+
+    # Test Accuracy
+    for i, e in enumerate(test_accuracy):
+        plt.bar(x=i, height=np.mean(e), xerr=None, yerr=np.std(e), label="K=" + str(i))
+    plt.xlabel("Value of K")
+    plt.ylabel("Test Accuracy")
+    plt.title("Watch Average Test Accuracy")  # 三个run的average和std
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Test_Accuracy.png")
+    plt.show()
+
+    # Test Loss
+    for i, e in enumerate(test_loss):
+        plt.bar(x=i, height=np.mean(e), xerr=None, yerr=np.std(e), label="K=" + str(i))
+    plt.xlabel("Value of K")
+    plt.ylabel("Test SoftMax Loss")
+    plt.title("Watch Average Test SoftMax Loss")
+    plt.legend()
+    plt.savefig("./phase" + str(phase) + "_result/" + flag.upper() + "_Test_Loss.png")
+    plt.show()
+
+
+
+
 if __name__ == '__main__':
     # phone()
-    watch()
+    # watch()
+    analyze(phase=5, num_runs=10, k=10)

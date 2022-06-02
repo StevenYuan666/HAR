@@ -1,0 +1,39 @@
+Loading watch data
+Using watch data from user 6
+Loaded watch data
+Start Experiment
+Building Model
+Built
+Start Training
+Step: [1/2000] train_min_loss: [2.5970] train_acc: [0.5000] test_min_loss: [2.8153] test_acc: [0.1311]
+Generating adversarial data [iter 0]
+Step: [101/2000] train_min_loss: [0.5934] train_acc: [0.9412] test_min_loss: [4.1099] test_acc: [0.3171]
+Generating adversarial data [iter 1]
+Step: [201/2000] train_min_loss: [0.1581] train_acc: [0.9848] test_min_loss: [3.3047] test_acc: [0.3633]
+Generating adversarial data [iter 2]
+Step: [301/2000] train_min_loss: [0.0003] train_acc: [1.0000] test_min_loss: [2.3196] test_acc: [0.4482]
+Generating adversarial data [iter 3]
+Step: [401/2000] train_min_loss: [0.0001] train_acc: [1.0000] test_min_loss: [2.4133] test_acc: [0.4444]
+Generating adversarial data [iter 4]
+Step: [501/2000] train_min_loss: [0.0001] train_acc: [1.0000] test_min_loss: [2.4839] test_acc: [0.4432]
+Generating adversarial data [iter 5]
+Step: [601/2000] train_min_loss: [0.0001] train_acc: [1.0000] test_min_loss: [2.5356] test_acc: [0.4432]
+Generating adversarial data [iter 6]
+Step: [701/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.5787] test_acc: [0.4395]
+Step: [801/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.6143] test_acc: [0.4419]
+Step: [901/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.6472] test_acc: [0.4419]
+Step: [1001/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.6789] test_acc: [0.4407]
+Step: [1101/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.7099] test_acc: [0.4407]
+Step: [1201/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.7413] test_acc: [0.4395]
+Step: [1301/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.7641] test_acc: [0.4407]
+Step: [1401/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.7885] test_acc: [0.4407]
+Step: [1501/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.8131] test_acc: [0.4395]
+Step: [1601/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.8385] test_acc: [0.4382]
+Step: [1701/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.8605] test_acc: [0.4395]
+Step: [1801/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.9105] test_acc: [0.4332]
+Step: [1901/2000] train_min_loss: [0.0000] train_acc: [1.0000] test_min_loss: [2.9614] test_acc: [0.4320]
+Saving
+Start Testing
+Loading pre-trained model.
+Calculating accuracy
+Target accuracy: [0.4406] target loss: [2.9845]

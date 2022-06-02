@@ -10,14 +10,19 @@ from scipy import misc
 import tf_slim as slim
 
 from model_unseen import Model
-from data_preprocessing import get_phone_data, get_watch_data
+from data_preprocessing import get_phone_data, get_watch_data, get_train_validation_test
 
 class Trainer:
-    def __init__(self, flag, k=1):
+    def __init__(self, flag, data_stored_path, k=1, few_shot=True, n_way=18, k_shot=1):
         self.flag = flag
         if flag == "phone":
             print("Loading phone data.")
-            self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = get_phone_data()
+            if few_shot:
+                self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = \
+                    get_train_validation_test(data_stored_path=data_stored_path, num_cl=n_way, num_inst=k_shot, flag="phone")
+            else:
+                self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = \
+                    get_phone_data()
             self.x_train = self.x_train
             self.y_train = self.y_train
             self.x_validation = self.x_validation
@@ -25,7 +30,12 @@ class Trainer:
             print("Loaded phone data")
         elif flag == "watch":
             print("Loading watch data")
-            self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = get_watch_data()
+            if few_shot:
+                self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = \
+                    get_train_validation_test(data_stored_path=data_stored_path, num_cl=n_way, num_inst=k_shot, flag="watch")
+            else:
+                self.x_train, self.x_validation, self.x_test, self.y_train, self.y_validation, self.y_test = \
+                    get_watch_data()
             self.x_train = self.x_train
             self.y_train = self.y_train
             self.x_validation = self.x_validation
@@ -38,7 +48,7 @@ class Trainer:
         # self.train_iters = self.x_train.shape[0] + 1
         self.train_iters = 2000 # 做一个early stop
         # number of samples in each batch
-        self.batch_size = 32
+        self.batch_size = 16 # 32
         # gamma
         self.gamma = 1.0
         # max iterations
@@ -115,8 +125,8 @@ class Trainer:
                         [self.model.summary_op, self.model.min_loss, self.model.max_loss, self.model.accuracy],
                         feed_dict)
 
-                    train_rand_idxs = np.random.permutation(self.x_train.shape[0])[:100]
-                    test_rand_idxs = np.random.permutation(self.x_validation.shape[0])[:100]
+                    train_rand_idxs = np.random.permutation(self.x_train.shape[0]) # [:100]
+                    test_rand_idxs = np.random.permutation(self.x_validation.shape[0]) # [:100]
 
                     train_acc, train_min_loss = sess.run(fetches=[self.model.accuracy, self.model.min_loss],
                                                          feed_dict={self.model.z: self.x_train[train_rand_idxs],
